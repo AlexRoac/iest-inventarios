@@ -2,11 +2,19 @@
   "name": "iest-inventarios",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "Sistema de inventarios fullstack con React y Node.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "install-deps": "npm install && cd client && npm install && cd ../server && npm install"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "keywords": ["react", "node", "express", "postgresql"],
+  "author": "Alejandro",
+  "license": "ISC"
 }
