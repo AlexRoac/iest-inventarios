@@ -1,0 +1,10 @@
+{
+    "dev": {
+      "driver": "pg",
+      "user": "postgres",
+      "host": "localhost",
+      "database": "iestInventarios",
+      "password": "mundo131626%"
+    }
+  }
+

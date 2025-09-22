@@ -1,0 +1,259 @@
+/* Variables de color */
+:root {
+    --orange-color: #f56a0f;
+    --white-color: #ffffff;
+    --dark-color: #333333;
+  }
+  
+  /* Estilos generales */
+  .home-container {
+    overflow-x: hidden;
+  }
+  
+  /* Sección Hero */
+  .hero-section {
+    min-height: 100vh;
+    background-color: var(--orange-color);
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+  }
+
+  .page-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+  }
+
+  
+  .anniversary-logo {
+    display: none;
+  }
+  
+  .main-logo {
+    max-width: 85vh;
+    height: auto;
+    background: var(--white-color);
+    margin: 1rem auto;
+    padding: 0.5rem;
+  }
+  
+  .hero-title {
+    font-size: calc(1.5rem + 1.5vw);
+    font-weight: bold;
+    color: var(--white-color);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+  
+  .scroll-down {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .scroll-icon {
+    color: var(--white-color);
+    font-size: 2rem;
+    margin-top: 1rem;
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Secciones comunes */
+  .section-title {
+    font-size: calc(1.5rem + 1.5vw);
+    font-weight: bold;
+    color: var(--orange-color);
+    margin-bottom: 2rem;
+  }
+  
+  .section-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .description-text {
+    font-size: calc(1rem + 0.5vw);
+    padding: 0 1rem;
+    margin: 1rem 0;
+  }
+  
+  .divider-line {
+    height: 3px;
+    background-color: var(--orange-color);
+    margin: 1rem 0;
+  }
+  
+  /* Sección Áreas - Mejorada */
+  .areas-section {
+    min-height: auto;
+    padding: 3rem 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .areas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .area-column {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .area-image-container {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .area-image-container img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Sección Infografía */
+  .infographic-section {
+    padding: 3rem 0;
+  }
+  
+  .infographic-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Sección Análisis de Riesgos */
+  .risk-analysis-section {
+    min-height: auto;
+    padding: 3rem 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .analysis-table-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 2rem 0;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .analysis-image {
+    width: 100%;
+  }
+  
+  /* Footer */
+  .footer-section {
+    background-color: var(--orange-color);
+    padding: 1.5rem 0;
+  }
+  
+  .footer-text {
+    color: var(--white-color);
+    margin-bottom: 0;
+  }
+  
+  /* Media Queries */
+  @media (min-width: 768px) {
+    .anniversary-logo {
+      display: block;
+      text-align: right;
+      padding-right: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .anniversary-logo img {
+      width: 15vh;
+      height: 10vh;
+    }
+    
+    .main-logo {
+      margin: 3rem auto;
+    }
+  
+    .area-column {
+      width: auto;
+      padding: 0 15px;
+    }
+  
+    .area-image-container {
+      width: 250px;
+      height: 180px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .areas-section, .risk-analysis-section {
+      padding: 4rem 0;
+    }
+    
+    .analysis-table-container {
+      max-width: 90%;
+      margin: 2rem auto;
+    }
+  
+    .area-image-container {
+      width: 280px;
+      height: 200px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .areas-section, .risk-analysis-section {
+      padding: 2rem 0;
+    }
+  
+    .area-image-container {
+      height: 180px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .hero-title {
+      font-size: calc(1.2rem + 1vw);
+    }
+    
+    .section-title {
+      font-size: calc(1.3rem + 1vw);
+    }
+    
+    .description-text {
+      font-size: 1rem;
+    }
+  
+    .area-image-container {
+      height: 160px;
+      max-width: 280px;
+    }
+
+    .area-image img {
+      width: 15vh;
+      height: 10vh;
+    }
+  }

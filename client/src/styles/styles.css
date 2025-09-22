@@ -1,0 +1,94 @@
+/* Estilos generales */
+.text-hover {
+  color: black !important;
+  transition: color 0.3s ease;
+}
+
+.text-hover:hover {
+  color: #F86923 !important;
+  cursor: pointer;
+}
+
+.active-link {
+  font-weight: bold;
+  color: #F86923 !important;
+  border-bottom: 2px solid #F86923;
+}
+
+.container-login {
+  justify-items: center;
+}
+
+/* Estilos de autenticación */
+.auth-container {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: #f56a0f;
+}
+
+.auth-header {
+  background-color: #f56a0f;
+}
+
+.header-logo img {
+  max-width: 30vh;
+  height: auto;
+  margin-left: 3vw;
+}
+
+.anniversary-image {
+  max-width: 15vh;
+  height: auto;
+  margin: 2rem 3vw 2rem 0;
+}
+
+.auth-card {
+  background: #F7F7F7;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  padding: 2rem 3rem;
+  max-width: 500px;
+  width: 90%;
+  margin: 2rem auto;
+}
+
+.auth-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+/* Botones */
+.btn-primary {
+  background-color: #f56a0f;
+  border-color: #da5d0b;
+}
+
+.btn-primary:hover {
+  background-color: #da5d0b;
+  border-color: #bf5009;
+}
+
+.auth-button {
+  background-color: #f56a0f;
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+  background-color: #da5d0b;
+  transform: translateY(-1px);
+}
+
+.auth-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.alert {
+  margin-top: 1rem;
+  border-radius: 8px;
+}
