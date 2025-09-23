@@ -4,7 +4,8 @@ export default function useUserType() {
   const [userType, setUserType] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/user-info', {
+    const apiUrl = process.env.REACT_APP_API_URL || '';
+    fetch(`${apiUrl}/user-info`, {
       method: 'GET',
       credentials: 'include',
     })
