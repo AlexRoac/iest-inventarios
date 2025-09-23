@@ -80,7 +80,7 @@ function FormAgregarArticulo({ area: areaProp, fetchArticulos }) {
     }
 
     try {
-      const response = await fetch(`${apiUrl}//addItem`, {
+      const response = await fetch(`${apiUrl}/addItem`, {
         method: 'POST',
         body: data,
       });
