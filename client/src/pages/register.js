@@ -37,11 +37,14 @@ function Register() {
     setLoading(true);
     
     try {
-      const response = await fetch('http://localhost:3001/register', {
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const response = await fetch(`${apiUrl}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        credentials: 'include'
       });
+
 
       if (!response.ok) {
         const errorData = await response.json();

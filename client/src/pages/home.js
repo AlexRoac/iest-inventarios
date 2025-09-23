@@ -33,18 +33,21 @@ function Home() {
   }, [location]);
 
   useEffect(() => {
-    async function contarArticulos(){
-      try {
-        const response = await fetch('http://localhost:3001/contarArticulos');
-        const result = await response.json();
-        setNumArticulos(result);
-      } catch (err) {
-        console.error('Error fetching article counts:', err);
-      }
+  async function contarArticulos(){
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const response = await fetch(`${apiUrl}/contarArticulos`, {
+        credentials: 'include'
+      });
+      const result = await response.json();
+      setNumArticulos(result);
+    } catch (err) {
+      console.error('Error fetching article counts:', err);
     }
+  }
 
-    contarArticulos();
-  }, []);
+  contarArticulos();
+}, []);
 
   let isAdmin = userType === "admin";
 
