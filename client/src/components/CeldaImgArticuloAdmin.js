@@ -27,7 +27,7 @@ function CeldaImgArticuloAdmin(props) {
       formData.append('archivo', file);
   
       try {
-        const response = await fetch('http://localhost:3001/upload', {
+        const response = await fetch(`${apiUrl}/upload`, {
           method: 'POST',
           body: formData
         });
