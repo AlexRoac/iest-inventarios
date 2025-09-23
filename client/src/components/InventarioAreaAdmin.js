@@ -65,7 +65,8 @@ function InventarioAreaAdmin(props){
   async function fetchArticulos(area) {
     console.log("Fetching articulos for area:", area);
     try {
-      const response = await fetch(`http://localhost:3001/cargarInventario?area=${area}`);
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const response = await fetch(`${apiUrl}/cargarInventario?area=${area}`);
       const data = await response.json();
       console.log("Fetched data:", data);
       setArticulos(data);  // Update the state with fetched data
@@ -85,8 +86,8 @@ function InventarioAreaAdmin(props){
     try{
       //console.log("rowIndex changed: ", rowIndex);
       //console.log("colName changed: ", colName);
-
-      const response= await fetch('http://localhost:3001/updateChanges', {
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const response= await fetch(`${apiUrl}/updateChanges`, {
         method: "POST",
         body: JSON.stringify(cellUpdateParams),
         headers: {"Content-Type" : "application/json"}
@@ -115,8 +116,8 @@ const handleAddItem = async () => {
     if (newItem.ruta_pdf_seguridad) formData.append("ruta_pdf_seguridad", newItem.ruta_pdf_seguridad);
 
     console.log(formData)
-
-    const response = await fetch('http://localhost:3001/addItem', {
+    const apiUrl = process.env.REACT_APP_API_URL || '';
+    const response = await fetch(`${apiUrl}/addItem`, {
       method: "POST",
       body: formData // No need to set Content-Type manually!
     });
@@ -153,7 +154,8 @@ const handleAddItem = async () => {
     formData.append('thumbnail', blob, 'thumbnail.png');
 
     try{
-      const response = await fetch('http://localhost:3001/upload-thumbnail', {
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const response = await fetch(`${apiUrl}/upload-thumbnail`, {
         method: 'POST',
         body: formData,
       });
@@ -184,7 +186,8 @@ const handleAddItem = async () => {
     pdfFormData.append('pdf', file, file.name);
 
     try {
-      const pdfResponse = await fetch('http://localhost:3001/upload-pdf', {
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const pdfResponse = await fetch(`${apiUrl}/upload-pdf`, {
         method: 'POST',
         body: pdfFormData
       });
@@ -205,7 +208,7 @@ const handleAddItem = async () => {
       const formData = new FormData();
       formData.append('thumbnail', blob, 'thumbnail.png');
 
-      const thumbResponse = await fetch('http://localhost:3001/upload-thumbnail', {
+      const thumbResponse = await fetch(`${apiUrl}/upload-thumbnail`, {
         method: 'POST',
         body: formData,
       });
@@ -223,10 +226,10 @@ const handleAddItem = async () => {
       alert("Error uploading PDF: " + error.message);
     }
   };
-
+  const apiUrl = process.env.REACT_APP_API_URL || '';
   const updateChangesForCell = async (row, col, value) => {
     try {
-      const response = await fetch('http://localhost:3001/updateChanges', {
+      const response = await fetch(`${apiUrl}/updateChanges`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rowIndex: row, colName: col, newValue: value })
@@ -241,7 +244,7 @@ const handleAddItem = async () => {
 
   const handleDeleteSelected = async () => {
     try {
-      const response = await fetch('http://localhost:3001/deleteItems', {
+      const response = await fetch(`${apiUrl}/deleteItems`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: selectedRowsDelete })
