@@ -15,6 +15,11 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3001;
 
+// ✅ Si estás en producción detrás de proxy (Render, Heroku, etc.)
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1); // importante para cookies seguras
+}
+
 // ✅ Configuración CORS
 const corsOptions = {
   origin: function (origin, callback) {
@@ -62,9 +67,10 @@ app.use(session({
     tableName: 'session'
   }),
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000,
-    httpOnly: true
+  secure: process.env.NODE_ENV === 'production',
+  httpOnly: true,
+  sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+  maxAge: 24 * 60 * 60 * 1000
   }
 }));
 
