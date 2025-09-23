@@ -5,7 +5,8 @@ export async function uploadThumbnail(thumbnailUrl) {
   formData.append('thumbnail', blob, 'thumbnail.png');
 
   try{
-    const response = await fetch('http://localhost:3001/upload-thumbnail', {
+    const apiUrl = process.env.REACT_APP_API_URL || '';
+    const response = await fetch(`${apiUrl}/upload-thumbnail`, {
       method: 'POST',
       body: formData,
     });

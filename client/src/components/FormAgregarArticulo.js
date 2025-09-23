@@ -101,7 +101,7 @@ function FormAgregarArticulo({ area: areaProp, fetchArticulos }) {
   };
 
   async function fetchPdfBlob(pdfRoute) {
-    const response = await fetch(`${apiUrl}/${pdfRoute}`);
+    const response = await fetch(`/${pdfRoute}`);
     const blob = await response.blob();
     return blob;
   }
