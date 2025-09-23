@@ -26,7 +26,8 @@ function InventarioArea(props){
   async function fetchArticulos(area) {
     console.log("Fetching articulos for area:", area);
     try {
-      const response = await fetch(`http://localhost:3001/cargarInventario?area=${area}`);
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const response = await fetch(`${apiUrl}/cargarInventario?area=${area}`);
       const data = await response.json();
       console.log("Fetched data:", data);
       setArticulos(data);  // Update the state with fetched data

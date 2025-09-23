@@ -33,7 +33,7 @@ function Login() {
     setLoading(true);
     
     try {
-      // ✅ Usamos variable de entorno para backend
+      // Usamos variable de entorno para backend
       const apiUrl = process.env.REACT_APP_API_URL || '';
       const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
