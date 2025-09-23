@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import LogicTitleModal from './LogicTitleBodyModal.js';
 import ImgInventario from './imgInventario.js';
 
+const apiUrl = process.env.REACT_APP_API_URL || '';
 function CeldaImgArticuloAdmin(props) {
   const [showModal, setShowModal] = useState(false);
   const [imagePreview, setImagePreview] = useState("");  // Aquí se define el estado de la vista previa

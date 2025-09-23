@@ -23,7 +23,8 @@ function DefaultNavbar(props){
 
   const handleLogout = async () => {
     try {
-      const res = await fetch('http://localhost:3001/logout', {
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const res = await fetch(`${apiUrl}/logout`, {
         method: 'POST',
         credentials: 'include',
       });

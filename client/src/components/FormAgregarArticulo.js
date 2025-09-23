@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { generatePDFThumbnail } from '../utils/pdfThumbnailGenerator.js';
 import { uploadThumbnail } from '../utils/uploadThumbnail.js';
 
+const apiUrl = process.env.REACT_APP_API_URL || '';
 function FormAgregarArticulo({ area: areaProp, fetchArticulos }) {
   const isAreaFixed = !!areaProp;
 
@@ -79,7 +80,7 @@ function FormAgregarArticulo({ area: areaProp, fetchArticulos }) {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/addItem', {
+      const response = await fetch(`${apiUrl}//addItem`, {
         method: 'POST',
         body: data,
       });
@@ -100,7 +101,7 @@ function FormAgregarArticulo({ area: areaProp, fetchArticulos }) {
   };
 
   async function fetchPdfBlob(pdfRoute) {
-    const response = await fetch(`http://localhost:3001/${pdfRoute}`);
+    const response = await fetch(`${apiUrl}/${pdfRoute}`);
     const blob = await response.blob();
     return blob;
   }
