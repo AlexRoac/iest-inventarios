@@ -33,7 +33,9 @@ function Login() {
     setLoading(true);
     
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      // ✅ Usamos variable de entorno para backend
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
