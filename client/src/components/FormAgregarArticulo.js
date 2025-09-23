@@ -101,7 +101,7 @@ function FormAgregarArticulo({ area: areaProp, fetchArticulos }) {
   };
 
   async function fetchPdfBlob(pdfRoute) {
-    const response = await fetch(`/${pdfRoute}`);
+    const response = await fetch(`${apiUrl}/${pdfRoute}`); //este no es el error de dubplicar
     const blob = await response.blob();
     return blob;
   }
