@@ -415,11 +415,11 @@ process.on('uncaughtException', function (err) {
 
 // Iniciar servidor
 app.listen(port, () => {
-  console.log(`🚀 Servidor escuchando en puerto ${port}`);
-  console.log(`🌍 Entorno: ${process.env.NODE_ENV || 'development'}`);
+  console.log(` Servidor escuchando en puerto ${port}`);
+  console.log(`Entorno: ${process.env.NODE_ENV || 'development'}`);
   if (process.env.NODE_ENV === 'production') {
-    console.log('✅ Frontend servido desde el backend');
-    console.log(`📁 Uploads directory: ${uploadsDir}`);
+    console.log('Frontend servido desde el backend');
+    console.log(`Uploads directory: ${uploadsDir}`);
   }
 });
 
