@@ -22,7 +22,7 @@ const corsOptions = {
     
     const allowedOrigins = process.env.NODE_ENV === 'production' 
       ? [
-          `https://${process.env.RENDER_EXTERNAL_HOSTNAME || 'tu-app.onrender.com'}`,
+          `https://iest-inventarios.onrender.com`,
           'http://localhost:3000'
         ] 
       : ['http://localhost:3000'];
