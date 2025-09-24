@@ -201,17 +201,31 @@ app.post('/register', async (req, res) => {
 });
 
 // Cargar inventario
-app.get('/cargarInventario', async(req, res) => {
-  const { area } = req.query;
-  try{
-    let articulosArea = await pool.query(
-      "SELECT * FROM articulos WHERE area = $1", [area]
-    );
-    res.json(articulosArea.rows);
+app.get("/cargarInventario", async (req, res) => {
+  const area = req.query.area;
+  if (!area) return res.status(400).json({ error: 'Se requiere el parámetro area' });
+
+  try {
+    const result = await pool.query('SELECT * FROM articulos WHERE area = $1', [area]);
+    
+    // Mapear URLs de archivos
+    const mappedResults = result.rows.map(item => ({
+      ...item,
+      ruta_img: item.ruta_img ? getFileUrl(req, path.basename(item.ruta_img)) : null,
+      ruta_pdf_instructivo: item.ruta_pdf_instructivo ? getFileUrl(req, path.basename(item.ruta_pdf_instructivo)) : null,
+      ruta_img_instructivo: item.ruta_img_instructivo ? getFileUrl(req, path.basename(item.ruta_img_instructivo)) : null,
+      ruta_pdf_seguridad: item.ruta_pdf_seguridad ? getFileUrl(req, path.basename(item.ruta_pdf_seguridad)) : null,
+      ruta_img_seguridad: item.ruta_img_seguridad ? getFileUrl(req, path.basename(item.ruta_img_seguridad)) : null,
+    }));
+
+    res.json(mappedResults);
   } catch (error) {
-    res.status(500).json({ error: "Error fetching data from database"});
+    console.error('Error cargando inventario:', error);
+    res.status(500).json({ error: 'Error cargando inventario', details: error.message });
   }
 });
+
+
 
 // Update
 app.post('/updateChanges', async(req, res) => {
@@ -237,12 +251,17 @@ app.post('/addItem', upload.fields([
   { name: 'ruta_img_seguridad', maxCount: 1 }
 ]), async (req, res) => {
   const { area, nombre, cant, capRecipiente } = req.body;
-  const ruta_img = req.files.ruta_img ? `uploads/${req.files.ruta_img[0].filename}` : null;
-  const ruta_pdf_instructivo = req.files.ruta_pdf_instructivo ? `uploads/${req.files.ruta_pdf_instructivo[0].filename}` : null;
-  const ruta_img_instructivo = req.files.ruta_img_instructivo?.[0] ? `uploads/${req.files.ruta_img_instructivo[0].filename}` : null;
-  const ruta_pdf_seguridad = req.files.ruta_pdf_seguridad ? `uploads/${req.files.ruta_pdf_seguridad[0].filename}` : null;
-  const ruta_img_seguridad = req.files.ruta_img_seguridad?.[0] ? `uploads/${req.files.ruta_img_seguridad[0].filename}` : null;
-  let cant_vol = cant * capRecipiente;
+  const cant_num = parseFloat(cant);
+  const capRecipiente_num = parseFloat(capRecipiente);
+  const cant_vol = cant_num * capRecipiente_num;
+
+  // Convertir archivos a URLs absolutas usando getFileUrl
+  const ruta_img = req.files.ruta_img ? getFileUrl(req, req.files.ruta_img[0].filename) : null;
+  const ruta_pdf_instructivo = req.files.ruta_pdf_instructivo ? getFileUrl(req, req.files.ruta_pdf_instructivo[0].filename) : null;
+  const ruta_img_instructivo = req.files.ruta_img_instructivo?.[0] ? getFileUrl(req, req.files.ruta_img_instructivo[0].filename) : null;
+  const ruta_pdf_seguridad = req.files.ruta_pdf_seguridad ? getFileUrl(req, req.files.ruta_pdf_seguridad[0].filename) : null;
+  const ruta_img_seguridad = req.files.ruta_img_seguridad?.[0] ? getFileUrl(req, req.files.ruta_img_seguridad[0].filename) : null;
+
   try {
     const result = await pool.query(
       `INSERT INTO articulos 
@@ -250,13 +269,15 @@ app.post('/addItem', upload.fields([
        VALUES 
         ($1,$2,$3,$4,$5,$6,$7,$8,$9)
        RETURNING *`,
-      [area, nombre, cant, cant_vol, ruta_img, ruta_pdf_instructivo, ruta_img_instructivo, ruta_pdf_seguridad, ruta_img_seguridad]
+      [area, nombre, cant_num, cant_vol, ruta_img, ruta_pdf_instructivo, ruta_img_instructivo, ruta_pdf_seguridad, ruta_img_seguridad]
     );
     res.status(201).json({ message: 'Artículo agregado exitosamente', articulo: result.rows[0] });
   } catch (error) {
+    console.error('Error en addItem:', error);
     res.status(500).json({ message: 'Error al agregar artículo', error: error.message });
   }
 });
+
 
 // Upload thumbnail
 app.post('/upload-thumbnail', upload.single('thumbnail'), (req, res) => {
@@ -323,24 +344,27 @@ app.use((err, req, res, next) => {
 
 // ✅ Fallbacks de rutas
 if (process.env.NODE_ENV === 'production') {
-  // En producción → SPA fallback
+  const clientBuildPath = path.join(__dirname, '../client/build');
+  app.use(express.static(clientBuildPath));
+
   app.get('*', (req, res) => {
-    const clientBuildPath = path.join(__dirname, '../client/build/index.html');
-    if (fs.existsSync(clientBuildPath)) {
-      res.sendFile(clientBuildPath);
+    const indexPath = path.join(clientBuildPath, 'index.html');
+    if (fs.existsSync(indexPath)) {
+      res.sendFile(indexPath);
     } else {
-      res.status(404).json({ 
-        message: 'Frontend not built yet',
+      res.status(404).json({
+        message: 'Frontend not built',
         hint: 'Run npm run build en la carpeta client'
       });
     }
   });
 } else {
-  // En desarrollo → JSON 404
+  // En desarrollo → 404 JSON para endpoints inexistentes
   app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found' });
   });
 }
+
 
 // Errores globales
 process.on('uncaughtException', function (err) {

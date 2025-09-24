@@ -1,12 +1,12 @@
 import { useRef } from 'react';
 import ImgInventario from './imgInventario.js';
-import { buildFileUrl } from '../utils/urlHelper.js'; // 👈 Importamos helper
+import { buildFileUrl } from '../utils/urlHelper.js'; //  Importamos helper
 
 function CeldaPdfAdmin(props){
   const fileInputRef = useRef(null);
 
   function openFile(url) {
-    const fullUrl = buildFileUrl(url); // 👈 Construimos URL correctamente
+    const fullUrl = buildFileUrl(url); //  Construimos URL correctamente
     window.open(fullUrl, '_blank');
   }
 

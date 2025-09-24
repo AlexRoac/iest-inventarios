@@ -6,10 +6,10 @@ function Medicina(){
   const userType = useUserType();
 
   if (userType === 'normal'){
-    return <InventarioArea nombreArea="Medicina"/>;
+    return <InventarioArea nombreArea="Medicina" area="medicina"/>;
   }
   else if (userType === 'admin') {
-    return <InventarioAreaAdmin nombreArea="Medicina"/>;
+    return <InventarioAreaAdmin nombreArea="Medicina" area="medicina"/>;
   }
 }
 
