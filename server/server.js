@@ -237,11 +237,11 @@ app.post('/addItem', upload.fields([
   { name: 'ruta_img_seguridad', maxCount: 1 }
 ]), async (req, res) => {
   const { area, nombre, cant, capRecipiente } = req.body;
-  const ruta_img = req.files.ruta_img ? getFileUrl(req, req.files.ruta_img[0].filename) : null;
-  const ruta_pdf_instructivo = req.files.ruta_pdf_instructivo ? getFileUrl(req, req.files.ruta_pdf_instructivo[0].filename) : null;
-  const ruta_img_instructivo = req.files.ruta_img_instructivo?.[0] ? getFileUrl(req, req.files.ruta_img_instructivo[0].filename) : null;
-  const ruta_pdf_seguridad = req.files.ruta_pdf_seguridad ? getFileUrl(req, req.files.ruta_pdf_seguridad[0].filename) : null;
-  const ruta_img_seguridad = req.files.ruta_img_seguridad?.[0] ? getFileUrl(req, req.files.ruta_img_seguridad[0].filename) : null;
+  const ruta_img = req.files.ruta_img ? `uploads/${req.files.ruta_img[0].filename}` : null;
+  const ruta_pdf_instructivo = req.files.ruta_pdf_instructivo ? `uploads/${req.files.ruta_pdf_instructivo[0].filename}` : null;
+  const ruta_img_instructivo = req.files.ruta_img_instructivo?.[0] ? `uploads/${req.files.ruta_img_instructivo[0].filename}` : null;
+  const ruta_pdf_seguridad = req.files.ruta_pdf_seguridad ? `uploads/${req.files.ruta_pdf_seguridad[0].filename}` : null;
+  const ruta_img_seguridad = req.files.ruta_img_seguridad?.[0] ? `uploads/${req.files.ruta_img_seguridad[0].filename}` : null;
   let cant_vol = cant * capRecipiente;
   try {
     const result = await pool.query(
